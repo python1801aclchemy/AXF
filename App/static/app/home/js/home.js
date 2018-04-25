@@ -1,9 +1,5 @@
 $(function(){
 
-
-
-    initMenuSwiper();
-
     loadBanners();
     lodNavs();
     loadMustBuys();
@@ -71,22 +67,26 @@ function lodNavs() {
 
 // 有毛病 li一直变div
 function loadMustBuys() {
+    // <div id="swiperMenu" class="swiper-container">
+    //     <ul class="swiper-wrapper" id="must_buy_container">
+    //     </ul>
+    // </div>
     $.getJSON('/home/', function (data) {
-        // console.log(data['mustbuy_data']);
-        $mustbut_ul = $('#must_buy_container');
         $swiperMenu = $('#swiperMenu');
+        $mustbutul = $('<ul></ul>');
+        $swiperMenu.prop('class', 'swiper-container');
+        $mustbutul.prop('class', 'swiper-wrapper');
         for (var i=0; i<data['mustbuy_data'].length; i++){
-            // var $li = $('<li class="swiper-slide"></li>');
-            var $li1 = $('<li></li>');
-            $li1.attr('class', 'swiper-slide');
-            // console.log($li1);
-            var $img1 = $('<img src="">');
-            $img1.attr('src',data['mustbuy_data'][i]['img']);
-            $img1.appendTo($li1);
-            $li1.appendTo($mustbut_ul);
-            $mustbut_ul.appendTo($swiperMenu);
+            console.log(data['mustbuy_data'][i]['img']);
+            var $li = $('<li></li>');
+            $li.prop('class', 'swiper-slide');
+            var $img = $('<img src="">');
+            $img.prop('src',data['mustbuy_data'][i]['img']);
+            $img.appendTo($li);
+            $li.appendTo($mustbutul);
+            $mustbutul.appendTo($swiperMenu);
         }
-
+    initMenuSwiper();
     })
 }
 
